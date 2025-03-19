@@ -1,0 +1,48 @@
+get:
+  summary: 'Endpoint to list pokemon ability'
+  operationId: 'listPokemon'
+  tags: 
+    - Pokemon
+  parameters:
+    - in: path
+      name: 'pokemon_name'
+      description: 'Name of pokemon'
+      schema:
+        type: string
+        example: pikachu
+        required: true
+  responses:
+    200:
+      description: Success operation.
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/listPokemon.yml#components/listPokemon'
+    400:
+      description: 'Bad Request: pokemon name is required'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: 'Invalid Request'
+                description: 'Error Type'     
+              message:
+                type: string
+                example: 'Pokemon name is required'
+                description: 'Message of error'     
+    404:
+      description: 'Not found: Pokemon not found'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: 'Not Found'
+                description: 'Error type'
+    default:
+      $ref: '../../responses/Error.yml'

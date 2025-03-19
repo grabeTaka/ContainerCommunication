@@ -1,0 +1,20 @@
+openapi: '3.0.0'
+info:
+  version: 2.3.0
+  title: ZRPOKE
+  description: Documentação da API do Zrpoke
+servers:
+  - description: Development
+    url: http://localhost:3000
+  - description: Homolog
+    url: TODO
+  - description: Production
+    url: TODO
+
+paths:
+  /pokemons/:pokemon_name:
+    $ref: './paths/pokemon/listPokemon.yml'
+
+security:
+  - apiToken: []
+

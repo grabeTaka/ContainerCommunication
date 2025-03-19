@@ -1,0 +1,87 @@
+<!doctype html> <!-- Important: must specify -->
+<html>
+  <head>
+    <meta charset="utf-8"> <!-- Important: rapi-doc uses utf8 charecters -->
+    <title>API Docs</title>
+    <link rel="icon" type="image/png" href="https://assets-global.website-files.com/63d2978de907ee09794c3999/6437fa2913bc767bcf5b4223_zrp%20(4).svg" />
+    <script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
+    <style>
+        body {
+            background-image: url('https://assets-global.website-files.com/63d2978de907ee09794c3999/6434448b2675f35f85ae53cd_logo-p-500.png');
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .logo {
+            height: 40px;
+        }
+        .copyright {
+            font-size: 80%;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer {
+            display: flex;
+            align-items: center;
+        }
+        .footer .logo {
+            margin-right: 24px;
+        }
+        #docs {
+            opacity: 0;
+            transition: opacity 500ms ease-in;
+        }
+        #docs.active {
+            opacity: 1;
+        }
+
+        @media only screen and (min-width: 768px) {
+            .footer {
+                padding: 24px 8px;
+            }
+        }
+        @media only screen and (min-width: 1024px) {
+            .footer {
+                padding: 24px 80px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <rapi-doc
+      id="docs"
+      spec-url="./openapi.yml"
+      show-header="false"
+      sort-tags="true"
+      render-style="read"
+      theme="light"
+      schema-description-expanded="true"
+      use-path-in-nav-bar="true"
+      allow-try="false"
+      allow-server-selection="false"
+      allow-authentication="false"
+      primary-color="#2da77a"
+      nav-bg-color="#002d62"
+    >
+        <div slot="nav-logo" class="nav-logo">
+            <img src="https://assets-global.website-files.com/63d2978de907ee09794c3999/6434448b2675f35f85ae53cd_logo-p-500.png" class="logo"/>
+        </div>
+
+        <div slot="overview">
+            <p>Documentation about backend api of pokemon api <em>ZRPOKE</em>.</p>
+        </div>
+    </rapi-doc>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const rapidocEl = document.getElementById('docs');
+            rapidocEl.addEventListener('spec-loaded', (event) => {
+                rapidocEl.classList.add('active')
+                document.title = 'API Docs - ' + event.detail.info.title + ' (' + event.detail.info.version + ')'
+         
+            })
+        });
+    </script>
+  </body>
+</html>

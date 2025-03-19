@@ -1,0 +1,10 @@
+get:
+  summary: Endpoint ainda não documentado
+  operationId: toDo
+  tags: 
+    - To Do
+  responses:
+    '200':
+      $ref: "../responses/SampleResponse.yml"
+    default:
+      $ref: "../responses/Error.yml"

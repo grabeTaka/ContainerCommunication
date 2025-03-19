@@ -1,0 +1,10 @@
+components:
+  listPokemon:
+    type: object
+    properties:
+      abilities:
+        type: array
+        items:
+          type: string
+        description: List abilities of pokemon
+        example: ['static', 'lightning-rod']

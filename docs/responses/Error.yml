@@ -1,0 +1,14 @@
+description: Error in API
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Name of error
+          example: Bad_Request
+        message:
+          type: string
+          description: Message of error
+          example: Invalid request
