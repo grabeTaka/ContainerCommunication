@@ -1,15 +1,16 @@
 /* eslint-disable require-await */
 import express, { Request, Response, NextFunction } from 'express'
-import pokemonController from '@/modules/pokemon/controller'
+import todoController from '@/modules/TODO/controller'
 
 const router = express.Router()
 
 router
-    .route('/:pokemon_name')
+    .route('/todo')
     .get(async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const result = await pokemonController.listByName(req, res)
-            res.status(200).json(result)
+            //const result = await todoController.(req, res)
+            //res.status(200).json(result)
+            
         } catch (e) {
             res.status(500).json({
                 code: 500,

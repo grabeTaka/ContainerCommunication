@@ -1,8 +1,8 @@
 openapi: '3.0.0'
 info:
   version: 2.3.0
-  title: ZRPOKE
-  description: Documentação da API do Zrpoke
+  title: TODO
+  description: Documentação da API do TODO
 servers:
   - description: Development
     url: http://localhost:3000

@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpStatusCode } from '@/utils/enums/httpStatusCode'
 
-/**
- * Define o contrado de opções para o AppError
- */
 export interface Options {
     code?: string
     message: string
@@ -14,9 +11,6 @@ export interface Options {
     originalError?: Error
 }
 
-/**
- * Classe responsável por retornar o erro definido pela aplicação
- */
 export class AppError extends Error {
     constructor(options: Options) {
         super(options.message)
