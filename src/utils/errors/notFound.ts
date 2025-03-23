@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '@/utils/enums/httpStatusCode'
+import { HttpStatusCode } from '../../utils/enums/httpStatusCode'
 
 import { AppError, Options } from './app'
 

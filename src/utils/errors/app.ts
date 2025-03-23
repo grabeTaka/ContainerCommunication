@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HttpStatusCode } from '@/utils/enums/httpStatusCode'
+import { HttpStatusCode } from '../../utils/enums/httpStatusCode'
 
 export interface Options {
     code?: string
@@ -12,6 +12,11 @@ export interface Options {
 }
 
 export class AppError extends Error {
+    statusCode: HttpStatusCode
+    code: any
+    description: string
+    metadata: {}
+    translateParams: {}
     constructor(options: Options) {
         super(options.message)
 

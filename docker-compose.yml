@@ -6,7 +6,7 @@ services:
         container_name: api
         build: .
         volumes:
-            - ./src:/src
+            - ./src:/api/src
         ports:
             - ${APPLICATION_PORT}:${APPLICATION_PORT}
         env_file:
