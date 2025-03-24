@@ -1,5 +1,6 @@
-import { IUser } from '../../../../types/user'
+import { UserSchema } from '@/schemas'
+
 export interface ICreateUserUseCase {
-    prepare: (user: IUser) => void
-    execute: () => Promise<IUser>
+    prepare: (user: UserSchema) => void
+    execute: () => Promise<UserSchema>
 }

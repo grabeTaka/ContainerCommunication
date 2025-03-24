@@ -1,4 +1,5 @@
-import { IUser } from '../../../../types/user'
+import { UserSchema } from "@/schemas";
+
 export interface IFindAllUsersUseCase {
-    execute: () => Promise<IUser[]>
+    execute: () => Promise<UserSchema[]>
 }

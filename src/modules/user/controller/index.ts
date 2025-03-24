@@ -3,10 +3,12 @@ import { Request, Response } from 'express'
 import { IUserController } from "./types"
 import { IUserService } from "../service/type"
 import userService from "../service"
-import { IUser } from "@/types/user"
+
 import { BadRequestError } from '../../../utils/errors/badRequest'
 import { fromRequest } from '../../../utils/fromRequest'
-import { User } from '../model'
+import { UserSchema } from '../../../schemas/index'
+import { parserSchemaValidations } from '../../../utils/zod/parserSchemaValidations'
+import { createUserSchema } from '../../../schemas/user'
 
 class UserController implements IUserController{
     userService: IUserService
@@ -14,41 +16,44 @@ class UserController implements IUserController{
     constructor() {
         this.userService = userService
     }
-    create = async (req: Request, res: Response): Promise<IUser> => {
-        const {user} = req.body;
-        
-        const userAlreadyRegistered = await this.userService.findByFilter(user.email, 'email')
+    create = async (req: Request, res: Response): Promise<UserSchema> => {
+        const { body } = await parserSchemaValidations(createUserSchema, req )
+        const users = await this.userService.findByFilter(body.email, 'email')
 
-        if (userAlreadyRegistered.length > 0) {
+        if (users.length > 0)
             throw new BadRequestError({ message: 'User already registered in database' })
-        }
-        return await this.userService.create(user);
+
+        const userData = await this.userService.findAddressOrCoordinates(body)
+
+        console.log('------------')
+        console.log(userData);
+        console.log('------------')
+
+        return await this.userService.create(body);
     }
 
-    getAll = async (req: Request, res: Response): Promise<IUser[]> => {
+    getAll = async (req: Request, res: Response): Promise<UserSchema[]> => {
         const results = await this.userService.getAll()
         return results;
     }
 
-    getById = async (req: Request, res: Response): Promise<IUser> => {
+    getById = async (req: Request, res: Response): Promise<UserSchema> => {
         const id: string = fromRequest(req, 'params', 'id', true)
         const result = await this.userService.getById(id)
         return result;
     }
 
-    async delete(req: Request, res: Response): Promise<User> {
+    delete = async (req: Request, res: Response): Promise<UserSchema> => {
         const id: string = fromRequest(req, 'params', 'id', true)
         const result = await this.userService.delete(id)
         return result;
     }
 
-    async updateById(req: Request, res: Response): Promise<IUser> {
+    updateById = async (req: Request, res: Response): Promise<UserSchema> => {
         const id: string = fromRequest(req, 'params', 'id', true)
-        const user: Partial<IUser> = fromRequest(req, 'body', 'user', true)
+        const user: Partial<UserSchema> = fromRequest(req, 'body', 'user', true)
         return await this.userService.updateById(id, user)
-
     }
-
 }
 
 const userController = new UserController()

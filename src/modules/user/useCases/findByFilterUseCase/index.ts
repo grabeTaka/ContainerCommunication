@@ -1,6 +1,7 @@
 import { IUser } from '@/types/user'
 import { IFindByFilterUseCase } from './types'
 import { userModel } from '../../model';
+import { UserSchema } from '@/schemas';
 
 
 export class FindByFilterUseCase implements IFindByFilterUseCase {
@@ -12,7 +13,7 @@ export class FindByFilterUseCase implements IFindByFilterUseCase {
         this.value = value
         this.key = key
     }
-    execute = async (): Promise<IUser[]> => {
+    execute = async (): Promise<UserSchema[]> => {
         const filter = {
             key: '',
             value: this.value

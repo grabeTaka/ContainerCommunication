@@ -1,5 +1,6 @@
-import { IUser } from '../../../../types/user'
+import { UserSchema } from '@/schemas'
+
 export interface IUpdateByIdUseCase {
-    prepare: (id: string, value: Partial<IUser>) => void
-    execute: () => Promise<IUser>
+    prepare: (id: string, value: Partial<UserSchema>) => void
+    execute: () => Promise<UserSchema>
 }

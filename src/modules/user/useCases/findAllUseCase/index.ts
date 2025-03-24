@@ -1,13 +1,13 @@
-import { IUser } from '@/types/user'
 import { IFindAllUsersUseCase } from './types'
 import { userModel } from '../../model';
+import { UserSchema } from '@/schemas';
 
 
 export class FindAllUsersUseCase implements IFindAllUsersUseCase {
-    user: Partial<IUser>;
+    user: Partial<UserSchema>;
     userModel = userModel;
 
-    execute = async (): Promise<IUser[]> => {
+    execute = async (): Promise<UserSchema[]> => {
         return await this.userModel.find()
     }
 }

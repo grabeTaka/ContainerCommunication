@@ -27,6 +27,7 @@
     "express-openapi-validation": "^0.10.0",
     "module-alias": "^2.2.3",
     "mongoose": "^8.12.2",
+    "node-geocoder": "^4.4.1",
     "nodemon": "^3.0.1",
     "prettier": "^2.5.1",
     "supertest": "^6.3.3",

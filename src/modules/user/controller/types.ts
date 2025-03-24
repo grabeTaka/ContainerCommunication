@@ -1,10 +1,10 @@
-import { IUser } from "@/types/user";
+import { UserSchema } from "@/schemas";
 import { Request, Response } from 'express'
 
 export interface IUserController {
-    create(req: Request, res: Response): Promise<IUser>
-    getAll(req: Request, res: Response): Promise<IUser[]>
-    getById(req: Request, res: Response): Promise<IUser>
-    delete(req: Request, res: Response): Promise<IUser>
-    updateById(req: Request, res: Response): Promise<IUser>
+    create(req: Request, res: Response): Promise<UserSchema>
+    getAll(req: Request, res: Response): Promise<UserSchema[]>
+    getById(req: Request, res: Response): Promise<UserSchema>
+    delete(req: Request, res: Response): Promise<UserSchema>
+    updateById(req: Request, res: Response): Promise<UserSchema>
 }

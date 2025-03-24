@@ -1,10 +1,11 @@
 import { getModelForClass, modelOptions, mongoose, Prop } from "@typegoose/typegoose"
 import ObjectId = mongoose.Types.ObjectId
 import { IUser } from "@/types/user"
+import { UserSchema } from "@/schemas"
 
 
 @modelOptions({ schemaOptions: { validateBeforeSave: false } })
-export class User implements IUser {
+export class User implements UserSchema {
     @Prop({ required: true, default: () => new ObjectId().toString() })
     _id: string
     

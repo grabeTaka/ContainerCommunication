@@ -1,9 +1,9 @@
 import type { Request } from 'express'
 import { AnyZodObject, ZodError, z } from 'zod'
-import { HttpStatusCode } from '../utils/enums/httpStatusCode'
-import { BadRequestError } from './errors/badRequest'
+import { HttpStatusCode } from '../enums/httpStatusCode'
+import { BadRequestError } from '../errors/badRequest'
 
-export async function zodParser<T extends AnyZodObject>(
+export async function parserSchemaValidations<T extends AnyZodObject>(
     schema: T,
     req: Request
 ): Promise<z.infer<T>> {
@@ -12,13 +12,11 @@ export async function zodParser<T extends AnyZodObject>(
         return parsedData
     } catch (error) {
         if (error instanceof ZodError) {
-            const errors = error.errors.map((err) => ({
-                message: err.message,
-                path: err.path.join('.'),
-            }))
+            console.log(error.errors)
             throw new BadRequestError({
                 message: 'Validation failed',
                 statusCode: HttpStatusCode.BAD_REQUEST,
+                description: error.errors.map(error => error.message).join(', '),
             })
         }
         throw new BadRequestError({

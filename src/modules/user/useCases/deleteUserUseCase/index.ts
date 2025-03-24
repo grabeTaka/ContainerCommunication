@@ -1,6 +1,6 @@
-import { IUser } from '@/types/user'
 import { IDeleteUserUseCase } from './types'
 import { userModel } from '../../model';
+import { UserSchema } from '@/schemas';
 
 
 export class DeleteUserUseCase implements IDeleteUserUseCase {
@@ -10,7 +10,7 @@ export class DeleteUserUseCase implements IDeleteUserUseCase {
     prepare = (id: string): void => {
         this.id = id
     }
-    execute = async (): Promise<IUser> => {
-        return this.userModel.deleteOne({ _id: this.id }) as unknown as IUser
+    execute = async (): Promise<UserSchema> => {
+        return this.userModel.deleteOne({ _id: this.id }) as unknown as UserSchema
     }
 }
