@@ -1,18 +1,27 @@
-import { IUser } from '@/types/user'
 import { IFindUserByIdUseCase } from './types'
 import { userModel } from '../../model';
 import { UserSchema } from '@/schemas';
+import { mongoose } from '@typegoose/typegoose';
+import { NotFoundError } from '../../../../utils/errors/notFound';
+import { BadRequestError } from '../../../..//utils/errors/badRequest';
 
 
 export class FindUserByIdUseCase implements IFindUserByIdUseCase {
-    id: string;
+    id: mongoose.Types.ObjectId;
     userModel = userModel;
 
     prepare(id: string): void {
-        this.id = id
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw new BadRequestError({message: 'Invalid ObjectId'});
+        }
+
+        this.id = new mongoose.Types.ObjectId(id)
     }
-    
+
     execute = async (): Promise<UserSchema> => {
-        return this.userModel.findById(this.id)
+        const result = await this.userModel.findById(this.id)
+        if (!result)
+            throw new NotFoundError({ message: 'User not found' })
+        return result
     }
 }

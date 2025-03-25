@@ -8,6 +8,7 @@ import { join, resolve } from 'path'
 import { addAliases } from 'module-alias'
 
 import usersRoutes from '../modules/user/routes/index'
+import regionsRoutes from '../modules/region/routes/index'
 
 const app = express()
 
@@ -34,6 +35,8 @@ async function startServer() {
     });
 
     app.use('/api/users', usersRoutes);
+    app.use('/api/regions', regionsRoutes);
+
     app.use(errorHandler)
 
     app.listen(3000, () => {

@@ -6,7 +6,7 @@ import { FindAllUsersUseCase } from "../useCases/findAllUseCase";
 import { FindUserByIdUseCase } from "../useCases/findUserByIdUseCase";
 import { DeleteUserUseCase } from "../useCases/deleteUserUseCase";
 import { UpdateByIdUseCase } from "../useCases/updateByIdUserUseCase";
-import { UserSchema } from "@/schemas";
+import { DeleteDbResultSchema, UserSchema } from "@/schemas";
 import { GetAddressFromCoordinatesUseCase } from "../useCases/getAddressFromCoordinatesUseCase";
 import { GetGoordinatesFromAddressUseCase } from "../useCases/getCoordinatesFromAddressUseCase";
 
@@ -46,12 +46,12 @@ class UserService implements IUserService{
         createUserUseCase.prepare(user)
         return createUserUseCase.execute()
     }
-    delete(id: string): Promise<UserSchema> {
+    delete(id: string): Promise<DeleteDbResultSchema> {
         const deleteUserUseCase = new DeleteUserUseCase()
         deleteUserUseCase.prepare(id)
         return deleteUserUseCase.execute()
     }
-    updateById(id: string, value: Partial<UserSchema>) {
+    update(id: string, value: Partial<UserSchema>) {
         const updateByIdUseCase = new UpdateByIdUseCase()
         updateByIdUseCase.prepare(id, value)
         return updateByIdUseCase.execute()

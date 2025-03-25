@@ -16,12 +16,14 @@ export async function parserSchemaValidations<T extends AnyZodObject>(
             throw new BadRequestError({
                 message: 'Validation failed',
                 statusCode: HttpStatusCode.BAD_REQUEST,
-                description: error.errors.map(error => error.message).join(', '),
+                description: error.errors.map(error => `${error.path[1]} - ${error.message}`).join(', '),
             })
         }
         throw new BadRequestError({
             message: 'Internal server error',
             statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR
         })
-    }
+    }   
 }
+
+// TODO se o erro já existir filtrar e não adicionar no map da linha 19, mais fácil criar um útils para isso

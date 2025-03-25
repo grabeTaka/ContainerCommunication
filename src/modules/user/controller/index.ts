@@ -4,11 +4,11 @@ import { IUserController } from "./types"
 import { IUserService } from "../service/type"
 import userService from "../service"
 
-import { BadRequestError } from '../../../utils/errors/badRequest'
+import { ConflictError } from '../../../utils/errors/conflictRequest'
 import { fromRequest } from '../../../utils/fromRequest'
-import { UserSchema } from '../../../schemas/index'
+import { DeleteDbResultSchema, UserSchema } from '../../../schemas/index'
 import { parserSchemaValidations } from '../../../utils/zod/parserSchemaValidations'
-import { createUserSchema } from '../../../schemas/user'
+import { createUserSchema, updateUserSchema } from '../../../schemas/user'
 
 class UserController implements IUserController{
     userService: IUserService
@@ -21,15 +21,11 @@ class UserController implements IUserController{
         const users = await this.userService.findByFilter(body.email, 'email')
 
         if (users.length > 0)
-            throw new BadRequestError({ message: 'User already registered in database' })
+            throw new ConflictError({ message: 'User already registered in database' })
 
         const userData = await this.userService.findAddressOrCoordinates(body)
 
-        console.log('------------')
-        console.log(userData);
-        console.log('------------')
-
-        return await this.userService.create(body);
+        return await this.userService.create(userData);
     }
 
     getAll = async (req: Request, res: Response): Promise<UserSchema[]> => {
@@ -43,16 +39,15 @@ class UserController implements IUserController{
         return result;
     }
 
-    delete = async (req: Request, res: Response): Promise<UserSchema> => {
+    delete = async (req: Request, res: Response): Promise<DeleteDbResultSchema> => {
         const id: string = fromRequest(req, 'params', 'id', true)
         const result = await this.userService.delete(id)
         return result;
     }
 
-    updateById = async (req: Request, res: Response): Promise<UserSchema> => {
-        const id: string = fromRequest(req, 'params', 'id', true)
-        const user: Partial<UserSchema> = fromRequest(req, 'body', 'user', true)
-        return await this.userService.updateById(id, user)
+    update = async (req: Request, res: Response): Promise<UserSchema> => {
+        const { body, params } = await parserSchemaValidations(updateUserSchema, req )
+        return await this.userService.update(params.id, body)
     }
 }
 

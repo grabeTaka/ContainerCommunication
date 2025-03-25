@@ -1,6 +1,6 @@
-import { UserSchema } from '@/schemas'
+import { UpdateDbResultSchema, UserSchema } from '@/schemas'
 
 export interface IUpdateByIdUseCase {
     prepare: (id: string, value: Partial<UserSchema>) => void
-    execute: () => Promise<UserSchema>
+    execute: () => Promise<UpdateDbResultSchema>
 }

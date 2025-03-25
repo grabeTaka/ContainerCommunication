@@ -1,16 +1,29 @@
 import { IDeleteUserUseCase } from './types'
 import { userModel } from '../../model';
-import { UserSchema } from '@/schemas';
+import { DeleteDbResultSchema } from '@/schemas';
+import mongoose from 'mongoose';
+import { BadRequestError } from '../../../../utils/errors/badRequest';
+import { NotFoundError } from '../../../../utils/errors/notFound';
 
 
 export class DeleteUserUseCase implements IDeleteUserUseCase {
-    id: string;
+    id: mongoose.Types.ObjectId;
     userModel = userModel;
 
     prepare = (id: string): void => {
-        this.id = id
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw new BadRequestError({ message: 'Invalid ObjectId' });
+        }
+
+        this.id = new mongoose.Types.ObjectId(id)
     }
-    execute = async (): Promise<UserSchema> => {
-        return this.userModel.deleteOne({ _id: this.id }) as unknown as UserSchema
+
+    execute = async (): Promise<DeleteDbResultSchema> => {
+        const result = await this.userModel.deleteOne({ _id: this.id })
+        
+        if (!result.deletedCount)
+            throw new NotFoundError({message: "No records were deleted from the database."})
+
+        return result
     }
 }

@@ -20,6 +20,7 @@ export class GetAddressFromCoordinatesUseCase implements IGetAddressFromCoordina
     async execute(): Promise<string> {
         try {
             const [lat, lng] = this.coordinates
+            console.log(lat, lng)
             const address = await this.geoCoder.reverse({ lat: lat, lon: lng })
             if (!address.length) {
                 throw new BadRequestError(
@@ -28,6 +29,7 @@ export class GetAddressFromCoordinatesUseCase implements IGetAddressFromCoordina
             }
             return address[0].formattedAddress
         } catch (error) {
+            console.log(error)
             throw new BadRequestError(
                 { message: 'Unable to get address from coordinates' }
 
