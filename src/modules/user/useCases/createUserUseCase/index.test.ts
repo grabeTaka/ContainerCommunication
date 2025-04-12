@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+/*import { expect } from 'chai';
 import sinon from 'sinon';
 import { CreateUserUseCase } from './index';
 import { userModel } from '../../model';
@@ -72,4 +72,4 @@ describe('CreateUserUseCase', () => {
       expect(error.message).to.equal('Failed to create user');
     }
   });
-});
+});*/

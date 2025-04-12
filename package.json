@@ -10,7 +10,7 @@
     "format": "eslint src/**/*.ts --fix",
     "type-check": "tsc --noEmit --skipLibCheck",
     "cz": "cz",
-    "test": "mocha --require ts-node/register 'src/**/*.test.ts'"
+    "test": "mocha --require ts-node/register --require test/setup.ts 'src/**/*.test.ts'"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +36,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.6.0",
     "@types/chai": "^5.2.0",
     "@types/cors": "^2.8.15",
     "@types/express": "^4.17.20",
