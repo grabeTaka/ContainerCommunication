@@ -1,9 +1,9 @@
-import { IFindUserByIdUseCase } from './types'
-import { userModel } from '../../model';
+import { IFindUserByIdUseCase } from '@/modules/user/useCases/findUserByIdUseCase/types'
+import { userModel } from '@/modules/user/model';
 import { UserSchema } from '@/schemas';
 import { mongoose } from '@typegoose/typegoose';
-import { NotFoundError } from '../../../../utils/errors/notFound';
-import { BadRequestError } from '../../../..//utils/errors/badRequest';
+import { NotFoundError } from '@/utils/errors/notFound';
+import { BadRequestError } from '@/utils/errors/badRequest';
 
 
 export class FindUserByIdUseCase implements IFindUserByIdUseCase {

@@ -1,9 +1,8 @@
-import { IUser } from '@/types/user'
-import { IUpdateByIdUseCase } from './types'
-import { userModel } from '../../model';
+import { IUpdateByIdUseCase } from '@/modules/user/useCases/updateByIdUserUseCase/types'
+import { userModel } from '@/modules/user/model/index';
 import { UpdateDbResultSchema, UserSchema } from '@/schemas';
 import { mongoose } from '@typegoose/typegoose';
-import { BadRequestError } from '../../../../utils/errors/badRequest';
+import { BadRequestError } from '@/utils/errors/badRequest';
 
 
 export class UpdateByIdUseCase implements IUpdateByIdUseCase {
@@ -21,9 +20,7 @@ export class UpdateByIdUseCase implements IUpdateByIdUseCase {
     }
 
     execute = async (): Promise<UpdateDbResultSchema> => {
-        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxx')
         const result = await this.userModel.updateOne({ _id: this.id }, { $set: this.value })
-        console.log(result)
         return result
     }
 }

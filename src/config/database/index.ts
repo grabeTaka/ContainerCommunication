@@ -1,4 +1,4 @@
-import { IConfig } from "./type";
+import { IConfig } from "@/config/database/type";
 
 const config: IConfig = {
     mongoURI: process.env.DB_URI || 'mongodb://localhost:27017',

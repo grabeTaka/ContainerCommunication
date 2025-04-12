@@ -1,6 +1,6 @@
 import { Request } from 'express'
 
-import { InvalidParamError } from '../utils/errors/invalidParam'
+import { InvalidParamError } from '@/utils/errors/invalidParam'
 
 export const fromRequest = <T>(
     request: Request,

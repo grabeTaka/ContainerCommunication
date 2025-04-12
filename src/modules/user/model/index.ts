@@ -1,6 +1,5 @@
 import { getModelForClass, modelOptions, mongoose, Prop } from "@typegoose/typegoose"
 import ObjectId = mongoose.Types.ObjectId
-import { IUser } from "@/types/user"
 import { UserSchema } from "@/schemas"
 
 

@@ -1,7 +1,7 @@
 import type { Request } from 'express'
 import { AnyZodObject, ZodError, z } from 'zod'
-import { HttpStatusCode } from '../enums/httpStatusCode'
-import { BadRequestError } from '../errors/badRequest'
+import { HttpStatusCode } from '@/utils/enums/httpStatusCode'
+import { BadRequestError } from '@/utils/errors/badRequest'
 
 export async function parserSchemaValidations<T extends AnyZodObject>(
     schema: T,

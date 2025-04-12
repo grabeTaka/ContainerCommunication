@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
-import { AppError } from '../utils/errors/app'
-import { HttpStatusCode } from '../utils/enums/httpStatusCode'
+import { AppError } from '@/utils/errors/app'
+import { HttpStatusCode } from '@/utils/enums/httpStatusCode'
 
 export function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
     if (err instanceof AppError) {

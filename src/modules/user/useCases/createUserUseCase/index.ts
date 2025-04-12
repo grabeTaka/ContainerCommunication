@@ -1,6 +1,5 @@
-import { IUser } from '@/types/user'
-import { ICreateUserUseCase } from './types'
-import { userModel } from '../../model';
+import { ICreateUserUseCase } from '@/modules/user/useCases/createUserUseCase/types'
+import { userModel } from '@/modules/user/model';
 import { UserSchema } from '@/schemas';
 
 

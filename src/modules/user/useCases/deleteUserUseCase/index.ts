@@ -1,10 +1,10 @@
-import { IDeleteUserUseCase } from './types'
-import { userModel } from '../../model';
+import { IDeleteUserUseCase } from '@/modules/user/useCases/deleteUserUseCase/types'
+import { userModel } from '@/modules/user/model';
 import { DeleteDbResultSchema } from '@/schemas';
-import mongoose from 'mongoose';
-import { BadRequestError } from '../../../../utils/errors/badRequest';
-import { NotFoundError } from '../../../../utils/errors/notFound';
+import { BadRequestError } from '@/utils/errors/badRequest';
+import { NotFoundError } from '@/utils/errors/notFound';
 
+import mongoose from 'mongoose';
 
 export class DeleteUserUseCase implements IDeleteUserUseCase {
     id: mongoose.Types.ObjectId;

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { HttpStatusCode } from '../../utils/enums/httpStatusCode'
+import { HttpStatusCode } from '@/utils/enums/httpStatusCode'
 
 export interface Options {
     code?: string

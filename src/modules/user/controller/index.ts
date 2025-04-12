@@ -1,14 +1,14 @@
 import { Request, Response } from 'express'
 
-import { IUserController } from "./types"
-import { IUserService } from "../service/type"
-import userService from "../service"
+import { IUserController } from "@/modules/user/controller/types"
+import { IUserService } from "@/modules/user/service/type"
+import userService from "@/modules/user/service"
 
-import { ConflictError } from '../../../utils/errors/conflictRequest'
-import { fromRequest } from '../../../utils/fromRequest'
-import { DeleteDbResultSchema, UserSchema } from '../../../schemas/index'
-import { parserSchemaValidations } from '../../../utils/zod/parserSchemaValidations'
-import { createUserSchema, updateUserSchema } from '../../../schemas/user'
+import { ConflictError } from '@/utils/errors/conflictRequest'
+import { fromRequest } from '@/utils/fromRequest'
+import { DeleteDbResultSchema, UserSchema } from '@/schemas/index'
+import { parserSchemaValidations } from '@/utils/zod/parserSchemaValidations'
+import { createUserSchema, updateUserSchema } from '@/schemas/user'
 
 class UserController implements IUserController{
     userService: IUserService
@@ -23,9 +23,7 @@ class UserController implements IUserController{
         if (users.length > 0)
             throw new ConflictError({ message: 'User already registered in database' })
 
-        const userData = await this.userService.findAddressOrCoordinates(body)
-
-        return await this.userService.create(userData);
+        return await this.userService.create(users[0]);
     }
 
     getAll = async (req: Request, res: Response): Promise<UserSchema[]> => {

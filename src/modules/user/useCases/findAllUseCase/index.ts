@@ -1,5 +1,5 @@
-import { IFindAllUsersUseCase } from './types'
-import { userModel } from '../../model';
+import { IFindAllUsersUseCase } from '@/modules/user/useCases/findAllUseCase/types'
+import { userModel } from '@/modules/user/model';
 import { UserSchema } from '@/schemas';
 
 

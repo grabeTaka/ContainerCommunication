@@ -1,28 +1,22 @@
 import mongoose from 'mongoose'
 import express from 'express'
 
-import config from '../config/database/index'
-import { errorHandler } from '../middleware/index'
+import config from '@/config/database/index'
+import { errorHandler } from '@/middleware/index'
 
 import { join, resolve } from 'path'
 import { addAliases } from 'module-alias'
 
-import usersRoutes from '../modules/user/routes/index'
-import regionsRoutes from '../modules/region/routes/index'
-
+import usersRoutes from '@/modules/user/routes/index'
 const app = express()
 
 async function startServer() {
-
     const bodyParser = require('body-parser')
-
 
     const srcDir = join(__dirname, '..')
     addAliases({ '@': resolve(srcDir) })
 
-    console.log('Starting server...')
     await mongoose.connect(config.mongoURI)
-    console.log('Connected to database')
 
     app.use(bodyParser.json())
 
@@ -35,8 +29,6 @@ async function startServer() {
     });
 
     app.use('/api/users', usersRoutes);
-    app.use('/api/regions', regionsRoutes);
-
     app.use(errorHandler)
 
     app.listen(3000, () => {
