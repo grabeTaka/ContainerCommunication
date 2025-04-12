@@ -1,9 +1,9 @@
-/*import { expect } from 'chai';
+import { expect } from 'chai';
 import sinon from 'sinon';
 import { Request, Response } from 'express';
 import userController from '.';
 import userService from '../service';
-import { IUser } from '@/types/user';
+import { userPayloadMock, userPayloadMockCreate } from '../mock';
 
 describe('UserController', () => {
   let createUserStub: sinon.SinonStub;
@@ -19,17 +19,10 @@ describe('UserController', () => {
   });
 
   it('should call userService.create with correct data if user does not exist', async () => {
-    const userPayload: Partial<IUser> = {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      address: '123 Main St',
-      coordinates: [40.7128, 74.0060],
-    };
-
     findByFilterStub.resolves([]);
 
     const req = {
-      body: { user: userPayload },
+      body: userPayloadMockCreate,
     } as Request;
 
     const res = {} as Response;
@@ -39,21 +32,14 @@ describe('UserController', () => {
     await userController.create(req, res);
 
     expect(createUserStub.calledOnce).to.be.true;
-    expect(createUserStub.calledWith(userPayload)).to.be.true;
+    expect(createUserStub.calledWith(userPayloadMockCreate)).to.be.true;
   });
 
   it('should throw BadRequestError if user already exists', async () => {
-    const userPayload: Partial<IUser> = {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      address: '123 Main St',
-      coordinates: [40.7128, 74.0060],
-    };
-
-    findByFilterStub.resolves([userPayload]);
+    findByFilterStub.resolves([userPayloadMockCreate]);
 
     const req = {
-      body: { user: userPayload },
+      body: userPayloadMockCreate,
     } as Request;
 
     const res = {} as Response;
@@ -62,11 +48,11 @@ describe('UserController', () => {
 
     try {
       await userController.create(req, res);
-      expect.fail('Expected BadRequestError to be thrown');
+      expect.fail('Expected ConflictError to be thrown');
     } catch (error) {
-      expect(error.statusCode).to.equal(400);
+      expect(error.statusCode).to.equal(409);
     }
 
-    expect(findByFilterStub.calledOnceWithExactly(userPayload.email, 'email')).to.be.true;
+    expect(findByFilterStub.calledOnceWithExactly(userPayloadMockCreate.email, 'email')).to.be.true;
   });
-});*/
+});

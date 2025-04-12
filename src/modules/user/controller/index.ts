@@ -23,7 +23,7 @@ class UserController implements IUserController{
         if (users.length > 0)
             throw new ConflictError({ message: 'User already registered in database' })
 
-        return await this.userService.create(users[0]);
+        return await this.userService.create(body);
     }
 
     getAll = async (req: Request, res: Response): Promise<UserSchema[]> => {
