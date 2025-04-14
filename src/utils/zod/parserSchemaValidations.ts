@@ -12,7 +12,6 @@ export async function parserSchemaValidations<T extends AnyZodObject>(
         return parsedData
     } catch (error) {
         if (error instanceof ZodError) {
-            console.log(error.errors)
             throw new BadRequestError({
                 message: 'Validation failed',
                 statusCode: HttpStatusCode.BAD_REQUEST,

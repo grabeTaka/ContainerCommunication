@@ -9,7 +9,7 @@ import { fromRequest } from '@/utils/fromRequest'
 import { DeleteDbResultSchema, UserSchema } from '@/schemas/index'
 import { parserSchemaValidations } from '@/utils/zod/parserSchemaValidations'
 import { createUserSchema, updateUserSchema } from '@/schemas/user'
-
+// TODO REMOVER TODOS FROMREQUEST E USAR ZOD NO LUGAR PARA VALIDAR SE O CONTEUDO ENVIADO É VÁLIDO.
 class UserController implements IUserController{
     userService: IUserService
 
