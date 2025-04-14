@@ -5,21 +5,14 @@ import userController from '.';
 import userService from '../service';
 import { userPayloadMock, userPayloadMockCreate } from '../mock';
 
-describe('UserController', () => {
+describe('UserController create method', () => {
   let createUserStub: sinon.SinonStub;
   let findByFilterStub: sinon.SinonStub;
-  let getAllStub: sinon.SinonStub;
-  let getByIdStub: sinon.SinonStub;
-  let deleteStub: sinon.SinonStub;
-  let updateStub: sinon.SinonStub;
+
 
   beforeEach(() => {
     createUserStub = sinon.stub(userService, 'create').resolves(userPayloadMockCreate);
-    getAllStub = sinon.stub(userService, 'getAll');
     findByFilterStub = sinon.stub(userService, 'findByFilter');
-    getByIdStub = sinon.stub(userService, 'getById');
-    deleteStub = sinon.stub(userService, 'delete');
-    updateStub = sinon.stub(userService, 'update');
   });
 
   afterEach(() => {
@@ -65,7 +58,7 @@ describe('UserController', () => {
     expect(findByFilterStub.calledOnceWithExactly(userPayloadMockCreate.email, 'email')).to.be.true;
   });
 
-  it('should throw Error when user send cordinate and address', async () => {
+  it('should throw Error when user send coordinate and address', async () => {
     findByFilterStub.resolves([]);
 
     const req = {
@@ -86,6 +79,19 @@ describe('UserController', () => {
     expect(findByFilterStub.calledOnceWithExactly(userPayloadMock.email, 'email')).to.be.false;
   });
 
+});
+
+describe('UserController getAll method', () => {
+  let getAllStub: sinon.SinonStub;
+
+  beforeEach(() => {
+    getAllStub = sinon.stub(userService, 'getAll');
+  });
+
+  afterEach(() => {
+    sinon.restore();
+  });
+
   it('should call userService.getAll to list all customers', async () => {
     const req = {} as Request;
     const res = {} as Response;
@@ -98,6 +104,24 @@ describe('UserController', () => {
 
     expect(getAllStub.calledOnce).to.be.true;
     expect(result).to.deep.equal([userPayloadMock])
+  });
+});
+
+describe('UserController getById method', () => {
+  let getAllStub: sinon.SinonStub;
+  let getByIdStub: sinon.SinonStub;
+  let deleteStub: sinon.SinonStub;
+  let updateStub: sinon.SinonStub;
+
+  beforeEach(() => {
+    getAllStub = sinon.stub(userService, 'getAll');
+    getByIdStub = sinon.stub(userService, 'getById');
+    deleteStub = sinon.stub(userService, 'delete');
+    updateStub = sinon.stub(userService, 'update');
+  });
+
+  afterEach(() => {
+    sinon.restore();
   });
 
   it('should call userService.getById to list unique customer', async () => {
@@ -140,6 +164,19 @@ describe('UserController', () => {
     expect(getByIdStub.calledOnce).to.be.false;
   });
 
+});
+
+describe('UserController delete method', () => {
+  let deleteStub: sinon.SinonStub;
+
+  beforeEach(() => {
+    deleteStub = sinon.stub(userService, 'delete');
+  });
+
+  afterEach(() => {
+    sinon.restore();
+  });
+
   it('should call userService.delete to delete unique customer', async () => {
     const req = {
       params: {
@@ -159,6 +196,40 @@ describe('UserController', () => {
     expect(result).to.deep.equal(userPayloadMock)
   });
 
+  it('should throw error userService.delete when customer id is not valid value', async () => {
+    const req = {
+      params: {
+        id: 123
+      },
+    } as unknown as Request;
+    const res = {} as Response;
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns(res);
+
+    deleteStub.resolves();
+
+    try {
+      await userController.update(req, res);
+    } catch (error) {
+      expect(error.statusCode).to.equal(400);
+    }
+    
+    expect(deleteStub.calledOnce).to.be.false;
+  });
+});
+
+describe('UserController update method', () => {
+  let updateStub: sinon.SinonStub;
+
+  beforeEach(() => {
+    updateStub = sinon.stub(userService, 'update');
+  });
+
+  afterEach(() => {
+    sinon.restore();
+  });
+
   it('should throw error userService.update when customer id and body is undefined', async () => {
     const req = {
       params: {}
@@ -176,10 +247,10 @@ describe('UserController', () => {
       expect(error.statusCode).to.equal(400);
     }
     
-    expect(deleteStub.calledOnce).to.be.false;
+    expect(updateStub.calledOnce).to.be.false;
   });
 
-  it('should throw error userService.update when customer id id not valid value', async () => {
+  it('should throw error userService.update when customer id is not valid value', async () => {
     const req = {
       params: {
         id: 123
@@ -201,7 +272,7 @@ describe('UserController', () => {
       expect(error.statusCode).to.equal(400);
     }
     
-    expect(deleteStub.calledOnce).to.be.false;
+    expect(updateStub.calledOnce).to.be.false;
   });
 
   it('should userService.update update customer', async () => {
