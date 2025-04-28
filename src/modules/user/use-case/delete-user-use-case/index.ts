@@ -1,8 +1,8 @@
 import { IDeleteUserUseCase } from '@/modules/user/useCases/deleteUserUseCase/types'
 import { userModel } from '@/modules/user/model';
 import { DeleteDbResultSchema } from '@/schemas';
-import { BadRequestError } from '@/utils/errors/badRequest';
-import { NotFoundError } from '@/utils/errors/notFound';
+import { BadRequestError } from '@/utils/errors/bad-request';
+import { NotFoundError } from '@/utils/errors/not-found';
 
 import mongoose from 'mongoose';
 

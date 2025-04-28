@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express'
 import userController from '@/modules/user/controller'
-import { HttpStatusCode } from '@/utils/enums/httpStatusCode'
+import { HttpStatusCode } from '@/utils/enums/http-status-code'
 
 
 const router = express.Router()

@@ -2,7 +2,7 @@ import { IUpdateByIdUseCase } from '@/modules/user/useCases/updateByIdUserUseCas
 import { userModel } from '@/modules/user/model/index';
 import { UpdateDbResultSchema, UserSchema } from '@/schemas';
 import { mongoose } from '@typegoose/typegoose';
-import { BadRequestError } from '@/utils/errors/badRequest';
+import { BadRequestError } from '@/utils/errors/bad-request';
 
 
 export class UpdateByIdUseCase implements IUpdateByIdUseCase {

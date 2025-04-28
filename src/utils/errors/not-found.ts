@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '@/utils/enums/httpStatusCode'
+import { HttpStatusCode } from '@/utils/enums/http-status-code'
 import { AppError, Options } from '@/utils/errors/app'
 
 export class NotFoundError extends AppError {

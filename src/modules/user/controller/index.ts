@@ -4,10 +4,10 @@ import { IUserController } from "@/modules/user/controller/types"
 import { IUserService } from "@/modules/user/service/type"
 import userService from "@/modules/user/service"
 
-import { ConflictError } from '@/utils/errors/conflictRequest'
-import { fromRequest } from '@/utils/fromRequest'
+import { ConflictError } from '@/utils/errors/conflict-request'
+import { fromRequest } from '@/utils/from-request'
 import { DeleteDbResultSchema, UserSchema } from '@/schemas/index'
-import { parserSchemaValidations } from '@/utils/zod/parserSchemaValidations'
+import { parserSchemaValidations } from '@/utils/zod/parser-schema-validations'
 import { createUserSchema, updateUserSchema } from '@/schemas/user'
 // TODO REMOVER TODOS FROMREQUEST E USAR ZOD NO LUGAR PARA VALIDAR SE O CONTEUDO ENVIADO É VÁLIDO.
 class UserController implements IUserController{
