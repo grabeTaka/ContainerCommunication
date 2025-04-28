@@ -8,11 +8,11 @@ import { join, resolve } from 'path'
 import { addAliases } from 'module-alias'
 
 import usersRoutes from '@/modules/user/routes/index'
+import bodyParser from 'body-parser';
+
 const app = express()
 
 async function startServer() {
-    const bodyParser = require('body-parser')
-
     const srcDir = join(__dirname, '..')
     addAliases({ '@': resolve(srcDir) })
 

@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response } from 'express'
 import { AppError } from '@/utils/errors/app'
 import { HttpStatusCode } from '@/utils/enums/http-status-code'
 
-export function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
+export function errorHandler(err: unknown, _req: Request, res: Response) {
     if (err instanceof AppError) {
         return res.status(err.statusCode || HttpStatusCode.BAD_REQUEST).json({
             code: err.code,
